@@ -96,7 +96,9 @@ RATP ODTGEN/
 
 ## 🔧 Application Summary
 
-**RATP ODTGEN** is a professional web application designed for RATP operations teams to perform real-time component verification using barcode scanning technology. It streamlines quality control processes in manufacturing and maintenance operations.
+**RATP ODTGEN** is a professional web application developed by Josselin Perret (student at CentraleSupélec) during his internship at RATP. The application was created to automate the manual process of recording component numbers, transforming a repetitive and time-consuming task into an efficient digital system.
+
+Designed for RATP operational teams, it enables real-time component verification using barcode scanning technology, optimizing quality control processes in manufacturing and maintenance operations.
 
 ### Key Features
 - **Multi-format support:** CSV and Excel file uploads
@@ -136,7 +138,7 @@ RATP ODTGEN/
 **Documentation Version:** 1.0  
 **Application Version:** Production Release  
 **Last Updated:** June 25, 2025  
-**Developed by:** Josselin Perret, RATP
+**Developed by:** Josselin Perret - Student at CentraleSupélec, RATP
 
 ---
 

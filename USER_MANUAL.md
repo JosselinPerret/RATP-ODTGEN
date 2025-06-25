@@ -3,7 +3,9 @@
 ## 🎯 Quick Start Guide
 
 ### What is RATP ODTGEN?
-A professional barcode verification system designed for RATP operations teams to quickly verify components against inventory lists using real-time scanning.
+A professional barcode verification application developed by Josselin Perret (student at CentraleSupélec) during his internship at RATP. The goal was to automate the manual process of recording component numbers, transforming a repetitive and time-consuming task into a fast and reliable digital system.
+
+This solution enables RATP operational teams to quickly verify components against inventory lists using real-time scanning technology.
 
 **🌐 Access the application:** [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
 
@@ -55,7 +57,22 @@ Create an Excel file (.xlsx) with the same structure:
 
 ### Step 3: Scan Components
 
-#### Automatic Scanning (Recommended)
+#### Continuous Scan Mode (Recommended for High-Volume Scanning)
+1. **Enable "🔄 Continuous Scan Mode"** checkbox above the input field
+2. **The input field will automatically focus** after each scan
+3. **Use your barcode scanner normally** - most scanners automatically:
+   - Read the barcode
+   - Type the code into the focused input field
+   - Press Enter automatically
+4. **The application processes the scan and immediately refocuses** for the next one
+5. **No clicking or manual interaction needed** - perfect for scanning hundreds of components
+6. **Works with standard USB/Bluetooth barcode scanners** that act like keyboards
+
+**Important:** Make sure your barcode scanner is configured to automatically press Enter after scanning (this is the default for most scanners).
+
+**Tip:** If your scanner doesn't auto-press Enter, you can manually press Enter after each scan, and the field will still auto-focus for the next scan.
+
+#### Manual Scanning (Alternative Method)
 1. **Click in the scan field** labeled "Scan or enter component ID"
 2. **Type or paste the component ID**
 3. **Press Enter** - the system automatically processes the scan
@@ -102,6 +119,13 @@ Watch your progress with real-time counters:
 - **🟠 Orange rows** - Unknown components (not in your original list)
 
 ## 🔧 Advanced Features
+
+### Continuous Scan Mode
+- **Enable hands-free scanning** by checking "🔄 Continuous Scan Mode"
+- **Automatic input field focus** - no need to click between scans
+- **Perfect for high-volume operations** - scan hundreds of components without touching the computer
+- **Works with all standard barcode scanners** that output to keyboard input
+- **Automatic field clearing and re-focusing** after each successful scan
 
 ### Duplicate Prevention
 - The system automatically prevents scanning the same component twice
@@ -200,10 +224,12 @@ Watch your progress with real-time counters:
 - **Test with small files** before using large inventories
 
 ### Scanning Efficiency
-- **Use Enter key** instead of clicking buttons for faster scanning
+- **Enable Continuous Scan Mode** for hands-free operation with high-volume scanning
+- **Use Enter key** instead of clicking buttons for faster manual scanning
 - **Have good lighting** when reading barcodes manually
 - **Double-check unknown items** - they might be typos
 - **Scan systematically** to avoid missing components
+- **Position barcode scanner properly** - most scanners work best 4-8 inches from the barcode
 
 ### Data Management
 - **Export regularly** to save your progress

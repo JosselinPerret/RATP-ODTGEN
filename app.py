@@ -24,6 +24,10 @@ if 'clear_input' not in st.session_state:
     st.session_state.clear_input = False
 if 'input_counter' not in st.session_state:
     st.session_state.input_counter = 0
+if 'continuous_scan_mode' not in st.session_state:
+    st.session_state.continuous_scan_mode = False
+if 'auto_focus' not in st.session_state:
+    st.session_state.auto_focus = False
 
 @st.cache_data
 def load_data(uploaded_file):
@@ -256,21 +260,92 @@ col1, col2 = st.columns([1, 2])
 with col1:
     st.subheader("🔍 Barcode Scanner")
     
-    # Clear input if needed
-    input_value = ""
+    # Continuous scan mode toggle
+    continuous_mode = st.checkbox(
+        "🔄 Continuous Scan Mode",
+        value=st.session_state.continuous_scan_mode,
+        help="Enable for hands-free continuous barcode scanning"
+    )
+    st.session_state.continuous_scan_mode = continuous_mode
+    
+    # Create input key that changes to force re-render and auto-focus
     if st.session_state.clear_input:
         st.session_state.clear_input = False
         st.session_state.input_counter += 1
     
-    # Barcode input with automatic scanning
+    # Use empty value and force focus with a unique key
+    input_key = f"barcode_input_{st.session_state.input_counter}"
+    
+    # In continuous mode, automatically focus and clear after scan
+    if st.session_state.continuous_scan_mode:
+        # Inject CSS and JavaScript to auto-focus the input
+        st.markdown(f"""
+        <style>
+        /* Hide the input label for cleaner look in continuous mode */
+        .stTextInput > label {{
+            font-size: 14px;
+            font-weight: 600;
+        }}
+        </style>
+        <script>
+        // Auto-focus function
+        function autoFocusInput() {{
+            // Multiple selectors to find the input field reliably
+            const selectors = [
+                'input[data-baseweb="input"]',
+                'input[type="text"]',
+                'input[data-testid*="textInput"]'
+            ];
+            
+            let inputField = null;
+            for (const selector of selectors) {{
+                const elements = window.parent.document.querySelectorAll(selector);
+                for (const element of elements) {{
+                    if (element.placeholder && element.placeholder.includes('component ID')) {{
+                        inputField = element;
+                        break;
+                    }}
+                }}
+                if (inputField) break;
+            }}
+            
+            if (inputField) {{
+                inputField.focus();
+                inputField.select();
+                
+                // Add event listener for immediate refocus after Enter
+                inputField.addEventListener('keydown', function(e) {{
+                    if (e.key === 'Enter') {{
+                        setTimeout(() => {{
+                            inputField.focus();
+                            inputField.select();
+                        }}, 100);
+                    }}
+                }});
+            }}
+        }}
+        
+        // Execute multiple times to ensure it works
+        setTimeout(autoFocusInput, 100);
+        setTimeout(autoFocusInput, 300);
+        setTimeout(autoFocusInput, 500);
+        setTimeout(autoFocusInput, 1000);
+        
+        // Observer for DOM changes
+        const observer = new MutationObserver(autoFocusInput);
+        observer.observe(window.parent.document.body, {{ childList: true, subtree: true }});
+        </script>
+        """, unsafe_allow_html=True)
+    
+    # Barcode input
     barcode_input = st.text_input(
         "Scan or enter component ID:",
-        value=input_value,
+        value="",
         placeholder="Enter component ID and press Enter...",
-        key=f"barcode_input_{st.session_state.input_counter}"
+        key=input_key
     )
     
-    # Auto-scan when text is entered (triggered by Enter or when field loses focus)
+    # Auto-scan when text is entered
     if barcode_input and barcode_input.strip():
         if st.session_state.uploaded_df is not None:
             # Check if this component hasn't been scanned yet
@@ -285,7 +360,7 @@ with col1:
                 else:
                     st.warning(f"❌ Unknown component: {barcode_input.strip()}")
                 
-                # Signal to clear input on next run
+                # Force refresh for next scan
                 st.session_state.clear_input = True
                 st.rerun()
             else:
@@ -295,8 +370,12 @@ with col1:
         else:
             st.warning("Please upload a CSV or Excel file first!")
     
-    # Manual scan button (optional, for those who prefer clicking)
-    st.caption("💡 Tip: Just type or paste the component ID and press Enter for automatic scanning")
+    # Instructions based on mode
+    if st.session_state.continuous_scan_mode:
+        st.success("� **Continuous Mode Active**: Input field auto-focuses. Just scan and press Enter!")
+        st.caption("💡 Your barcode scanner should automatically enter the code and press Enter. No clicking needed!")
+    else:
+        st.caption("💡 Tip: Enable Continuous Scan Mode above for hands-free scanning")
     
 with col2:
     st.subheader("📋 Scan Results")

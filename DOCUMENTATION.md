@@ -3,12 +3,15 @@
 ## 🔍 Project Overview
 
 **Project Name:** RATP ODTGEN Barcode Component Verifier  
-**Developer:** Josselin Perret  
+**Developer:** Josselin Perret - Student at CentraleSupélec  
 **Organization:** RATP  
 **Live URL:** [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
 
+### Context & Origin
+This application was developed during my internship at RATP where one of my main tasks was to manually record each component number. This repetitive and time-consuming task was also prone to human errors. To significantly accelerate this process, I developed this digital solution that completely automates the component verification process.
+
 ### Purpose
-Professional-grade web application designed for RATP operations teams to perform real-time component verification using barcode scanning technology. Streamlines quality control processes in manufacturing and maintenance operations.
+Professional-grade web application designed for RATP operations teams to perform real-time component verification using barcode scanning technology. Streamlines quality control processes in manufacturing and maintenance operations, transforming manual component number recording into an automated, efficient, and error-free digital process.
 
 ### Target Users
 - Quality Control Engineers
@@ -408,8 +411,9 @@ ConnectionError: Network issues
 ## 📞 Support & Maintenance
 
 ### Contact Information
-- **Developer:** Josselin Perret
+- **Developer:** Josselin Perret - Student at CentraleSupélec
 - **Organization:** RATP
+- **Context:** Application developed during an internship at RATP to automate manual component recording
 - **Support Email:** [Contact through organization]
 
 ### Maintenance Schedule

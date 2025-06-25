@@ -4,6 +4,15 @@ A comprehensive Python web application built with **Streamlit** that allows RATP
 
 🌐 **Live Application**: [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
 
+## 📖 Context & Origin
+
+**Developed by:** Josselin Perret - Student at CentraleSupélec  
+**Organization:** RATP  
+
+This application was developed during my internship at RATP where one of my main tasks was to manually record each component number. To significantly accelerate this repetitive and error-prone task, I created this digital solution that automates the component verification process using barcode scanning.
+
+The objective was to transform a time-consuming manual process into an automated, fast, and reliable system, allowing RATP operational teams to save valuable time while reducing human errors.
+
 ## 🚀 Features
 
 ### Core Functionality
@@ -320,8 +329,9 @@ This project is developed for RATP operations and is available under the organiz
 
 ## 👨‍💻 Credits
 
-**Developed by:** Josselin Perret  
+**Developed by:** Josselin Perret - Student at CentraleSupélec  
 **Organization:** RATP  
+**Context:** Developed during an internship at RATP to automate manual component number recording  
 **Technology Stack:** Python, Streamlit, Pandas, openpyxl  
 **Deployment:** Streamlit Cloud
 
