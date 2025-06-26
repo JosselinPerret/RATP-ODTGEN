@@ -1,6 +1,10 @@
-# 📦 RATP - ODTGEN Barcode Component Verifier
+# 📦 RATP - ODTGEN Vérificateur de- **Export Excel avec codes couleur**:
+  - 🟢 Vert: Composants scannés (trouvés dans l'inventaire)
+  - 🔴 Rouge: Composants non scannés (dans l'inventaire mais non vérifiés)
+  - 🟠 Orange: Composants inconnus (scannés mais absents de l'inventaire)
+- **Suivi d'audit**: Enregistrement complet de toutes les activités de scanosants par Code-Barres
 
-Une application Python complète qui permet aux équipes d'exploitation RATP de télécharger des inventaires de composants et de vérifier les codes-barres scannés en temps réel. L'application est conçue pour le contrôle qualité et la gestion d'inventaire dans les opérations de fabrication et de maintenance.
+Application Python développée par **Josselin Perret** (étudiant à CentraleSupélec) lors de son stage ouvrier à la RATP. Cette solution permet aux équipes d'exploitation de télécharger des inventaires de composants et de vérifier les codes-barres en temps réel pour le contrôle qualité et la gestion d'inventaire.
 
 ## 🎯 Deux Versions Disponibles
 
@@ -19,178 +23,141 @@ Une application Python complète qui permet aux équipes d'exploitation RATP de 
 
 > 📋 Voir [COMPARISON.md](COMPARISON.md) pour une comparaison détaillée des deux versions
 
-## 🚀 Features
+## 🚀 Fonctionnalités Principales
 
-### Core Functionality
-- **Multi-format Upload**: Supports both CSV and Excel (.xlsx) file uploads
-- **Real-time Barcode Scanning**: Instant barcode verification with automatic scanning on Enter
-- **Intelligent Status Verification**: Automatic checking of scanned components against uploaded inventory
-- **Duplicate Prevention**: Smart detection to prevent re-scanning the same component
-- **Session Persistence**: Data maintained throughout the browser session
+### Import de Données
+- **Formats multiples**: Support des fichiers CSV et Excel (.xlsx)
+- **Validation automatique**: Vérification des colonnes requises
 
-### Advanced Export Features
-- **CSV Export**: Export unknown components for further analysis
-- **Excel Export with Color Coding**: 
-  - 🟢 Green: Scanned components (found in inventory)
-  - 🔴 Red: Not scanned components (in inventory but not verified)
-  - 🟠 Orange: Unknown components (scanned but not in inventory)
-- **Multiple Worksheets**: Separate sheets for component status and unknown items
-- **Auto-formatted Columns**: Optimized column widths for readability
+### Scan et Vérification
+- **Scan en temps réel**: Vérification instantanée avec scan automatique à l'appui sur Entrée
+- **Vérification intelligente**: Contrôle automatique des composants scannés avec l'inventaire chargé
+- **Prévention des doublons**: Détection pour éviter le re-scan du même composant
 
-### User Interface
-- **Professional Layout**: Clean, responsive design optimized for operational use
-- **Real-time Feedback**: Immediate visual confirmation of scan results
-- **Live Statistics**: Dynamic counters showing known/unknown/total scans
-- **Intuitive Controls**: Streamlined interface for fast-paced work environments
-- **Mobile Responsive**: Works on tablets and mobile devices for field use
-
-### Quality Control Features
-- **Component Validation**: Ensures uploaded files contain required columns
-- **Error Handling**: Robust error management with user-friendly messages
-- **Data Integrity**: Maintains scan history with timestamps
+### Export et Rapports
+- **Export CSV**: Export des composants inconnus pour analyse
+- **Export Excel avec codes couleur**:
+  - � Vert: Composants scannés (trouvés dans l'inventaire)
+  - 🔴 Rouge: Composants non scannés (dans l'inventaire mais non vérifiés)
+  - 🟠 Orange: Composants inconnus (scannés mais absents de l'inventaire)
 - **Audit Trail**: Complete record of all scanning activities
 
-## 🛠️ Installation & Setup
+## 🛠️ Installation & Configuration
 
-### Prerequisites
+### Prérequis
+
 - Python 3.9 ou plus récent
 - pip package manager
-- Navigateur web moderne (pour la version Streamlit)
 
 ### Installation Locale
 
 1. **Téléchargez** ce projet sur votre machine locale
 
-2. **Naviguez** vers le répertoire du projet :
-   ```bash
-   cd "RATP ODTGEN"
-   ```
-
 ### Version Tkinter (Recommandée) 🖥️
 
-3. **Installez les dépendances** :
+1. **Installez les dépendances** :
+
    ```bash
    pip install -r requirements_tkinter.txt
    ```
 
-4. **Lancez l'application** :
+2. **Lancez l'application** :
+
    ```bash
    python app_tkinter.py
    ```
+   
    **Ou** double-cliquez sur `launch_tkinter.bat`
 
 ### Version Streamlit (Web) 🌐
 
-3. **Installez les dépendances** :
+1. **Installez les dépendances** :
+
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Lancez l'application** :
+2. **Lancez l'application** :
+
    ```bash
    streamlit run app.py
    ```
 
-5. **Open your browser** and navigate to the displayed URL (typically `http://localhost:8501`)
+## 📋 Guide d'Utilisation
 
-### Online Access
+### Préparation du Fichier de Données
 
-The application is deployed and accessible at:
-🌐 **[https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)**
+Créez un fichier CSV ou Excel avec deux colonnes obligatoires:
 
-No installation required - simply access the URL in your web browser.
+- `component_name`: Le nom/description du composant
+- `component_id`: L'identifiant unique (valeur du code-barres)
 
-## 📋 Usage Guide
-
-### Step 1: Prepare Your Data File
-
-Create a CSV or Excel file with exactly two required columns:
-
-- `component_name`: The name/description of the component
-- `component_id`: The unique identifier (barcode value)
-
-**Example CSV content:**
+**Exemple de contenu CSV:**
 
 ```csv
 component_name,component_id
-Resistor 10k,123456
-Capacitor 100nF,234567
-LED Red 5mm,345678
+Résistance 10k,123456
+Condensateur 100nF,234567
+LED Rouge 5mm,345678
 Transistor BC547,456789
 ```
 
-**Example Excel content:**
-The same structure applies to Excel files (.xlsx format).
+**Format Excel:**
+La même structure s'applique aux fichiers Excel (.xlsx).
 
-### Step 2: Upload Your File
+### Téléchargement du Fichier
 
-1. Use the **drag-and-drop** file uploader in the sidebar
-2. Select your CSV or Excel file
-3. Verify the sample data appears correctly
-4. Check that the component count is displayed
+1. Utilisez le bouton de téléchargement dans la barre latérale
+2. Sélectionnez votre fichier CSV ou Excel
+3. Vérifiez que les données s'affichent correctement
 
-### Step 3: Start Scanning Components
+### Scan des Composants
 
-1. Enter component IDs in the **"Scan or enter component ID"** field
-2. Press **Enter** for automatic scanning (recommended)
-3. View real-time results in the main area with immediate feedback
+1. Entrez les IDs des composants dans le champ "Scanner ou entrer l'ID du composant"
+2. Appuyez sur **Entrée** pour un scan automatique
+3. Consultez les résultats en temps réel
 
-### Step 4: Monitor Results
+### Suivi des Résultats
 
-**Status Indicators:**
-- **🟢 Green entries**: Components found in your uploaded inventory
-- **🔴 Red entries**: Components NOT found in your inventory
-- **Live counters** in the sidebar show known/unknown/total statistics
+**Indicateurs de statut:**
 
-### Step 5: Export Results
+- **🟢 Entrées vertes**: Composants trouvés dans votre inventaire
+- **🔴 Entrées rouges**: Composants NON trouvés dans votre inventaire
 
-**CSV Export (Unknown Components):**
-- Click **"📥 Export Unknown Components (CSV)"** to download unrecognized items
-- Use for inventory updates or purchasing decisions
+### Export des Résultats
 
-**Excel Export (Complete Results):**
-- Click **"📊 Export Complete Results (Excel)"** for comprehensive report
-- **Color-coded worksheets:**
-  - **Sheet 1**: All components with scan status (Green=Scanned, Red=Not Scanned)
-  - **Sheet 2**: Unknown components (Orange highlighting)
-- **Auto-formatted** columns for professional presentation
+**Export CSV (Composants Inconnus):**
 
-## 🏗️ File Structure
+- Cliquez sur **"📥 Exporter Composants Inconnus (CSV)"** pour télécharger les éléments non reconnus
+
+**Export Excel (Résultats Complets):**
+
+- Cliquez sur **"📊 Exporter Résultats Complets (Excel)"** pour un rapport détaillé
+- **Feuilles avec codes couleur:**
+  - **Feuille 1**: Statut de tous les composants (Vert=Scanné, Rouge=Non Scanné)
+  - **Feuille 2**: Composants inconnus (surbrillance Orange)
+
+## 📦 Structure des Fichiers
 
 ```
 RATP ODTGEN/
-├── app.py                  # Main Streamlit application
-├── requirements.txt        # Python dependencies
-├── README.md              # This documentation
-├── sample_components.csv   # Example data file
-├── Test.csv               # Test data file
-├── Test.xlsx              # Test Excel file
-├── xlsx_to_csv.py         # Utility script for Excel conversion
-└── .gitignore             # Git ignore configuration
+├── app.py                     # Application Streamlit principale
+├── app_tkinter.py             # Application Tkinter native
+├── requirements.txt           # Dépendances Python pour Streamlit
+├── requirements_tkinter.txt   # Dépendances Python pour Tkinter
+├── launch_tkinter.bat         # Script de lancement rapide pour Windows
+├── README.md                  # Cette documentation
+└── sample_components.csv      # Fichier de données d'exemple
 ```
 
 ## ⚙️ Technical Details
 
-### Dependencies
+### Dépendances
 
-- **Streamlit** `>=1.28.0`: Web application framework
-- **Pandas** `>=2.0.0`: Data manipulation and analysis
-- **openpyxl** `>=3.1.0`: Excel file handling and styling
-
-### Key Architecture Components
-
-**Core Functions:**
-- `load_data()`: Cached file loading with format detection and validation
-- `check_component_status()`: Fast component verification using set lookup
-- `add_scanned_item()`: Session state management with duplicate prevention
-- `export_unknown_components()`: CSV generation for unknown items
-- `export_complete_results()`: Excel generation with advanced styling
-
-**Session State Management:**
-- `uploaded_df`: Cached DataFrame of uploaded inventory
-- `scanned_items`: List of all scanned components with metadata
-- `known_components`: Set for O(1) lookup performance
-- `clear_input`: Flag for input field reset management
+- **Pandas** `>=2.0.0`: Manipulation et analyse de données
+- **openpyxl** `>=3.1.0`: Gestion et mise en forme de fichiers Excel
+- **Tkinter** (inclus avec Python): Interface graphique native
+- **Streamlit** `>=1.28.0`: Framework d'application web (version web uniquement)
 
 ### Performance Optimizations
 
