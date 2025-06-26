@@ -1,4 +1,4 @@
-# 📦 RATP - ODTGEN Vérificateur de- **Export Excel avec codes couleur**:
+# 📦 RATP - ODTGEN Vérificateur de composants- **Export Excel avec codes couleur**:
   - 🟢 Vert: Composants scannés (trouvés dans l'inventaire)
   - 🔴 Rouge: Composants non scannés (dans l'inventaire mais non vérifiés)
   - 🟠 Orange: Composants inconnus (scannés mais absents de l'inventaire)
@@ -12,7 +12,7 @@ Application Python développée par **Josselin Perret** (étudiant à CentraleSu
 - Interface web responsive
 - Accès multi-utilisateur
 - Déploiement serveur possible
-- **🌐 Application en ligne**: [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
+- **🌐 Application en ligne**: [https://josselinperret-ratp-odtgen-streamlitapp-9ezp5q.streamlit.app/](https://josselinperret-ratp-odtgen-streamlitapp-9ezp5q.streamlit.app/)
 
 ### 🖥️ Version Tkinter (Native) - `app_tkinter.py` ⭐ **RECOMMANDÉE**
 - **🔄 Mode scan en continu** sans re-clic
@@ -37,7 +37,7 @@ Application Python développée par **Josselin Perret** (étudiant à CentraleSu
 ### Export et Rapports
 - **Export CSV**: Export des composants inconnus pour analyse
 - **Export Excel avec codes couleur**:
-  - � Vert: Composants scannés (trouvés dans l'inventaire)
+  - 🟢 Vert: Composants scannés (trouvés dans l'inventaire)
   - 🔴 Rouge: Composants non scannés (dans l'inventaire mais non vérifiés)
   - 🟠 Orange: Composants inconnus (scannés mais absents de l'inventaire)
 - **Audit Trail**: Complete record of all scanning activities
@@ -64,7 +64,7 @@ Application Python développée par **Josselin Perret** (étudiant à CentraleSu
 2. **Lancez l'application** :
 
    ```bash
-   python app_tkinter.py
+   python ./Tkinter/app_tkinter.py
    ```
    
    **Ou** double-cliquez sur `launch_tkinter.bat`
@@ -80,7 +80,7 @@ Application Python développée par **Josselin Perret** (étudiant à CentraleSu
 2. **Lancez l'application** :
 
    ```bash
-   streamlit run app.py
+   streamlit run ./Streamlit/app.py
    ```
 
 ## 📋 Guide d'Utilisation
@@ -89,17 +89,18 @@ Application Python développée par **Josselin Perret** (étudiant à CentraleSu
 
 Créez un fichier CSV ou Excel avec deux colonnes obligatoires:
 
-- `component_name`: Le nom/description du composant
-- `component_id`: L'identifiant unique (valeur du code-barres)
+- `Description`: Le nom/description du composant
+- `Code RIMSES`: L'identifiant unique (valeur du code-barres)
 
 **Exemple de contenu CSV:**
 
 ```csv
-component_name,component_id
-Résistance 10k,123456
-Condensateur 100nF,234567
-LED Rouge 5mm,345678
-Transistor BC547,456789
+Description,Code RIMSES
+CARTE CNA PXI,!CGS-5-09211
+AMPLIFICATEUR,!AMP-5-02025
+CARTE FIP PXI EXPRESS,!COM-5-08964
+CARTE MXI EXPRESS PCI EXPRESS,!COM-5-10055
+
 ```
 
 **Format Excel:**
@@ -141,13 +142,15 @@ La même structure s'applique aux fichiers Excel (.xlsx).
 
 ```
 RATP ODTGEN/
-├── app.py                     # Application Streamlit principale
-├── app_tkinter.py             # Application Tkinter native
-├── requirements.txt           # Dépendances Python pour Streamlit
-├── requirements_tkinter.txt   # Dépendances Python pour Tkinter
-├── launch_tkinter.bat         # Script de lancement rapide pour Windows
 ├── README.md                  # Cette documentation
-└── sample_components.csv      # Fichier de données d'exemple
+├── COMPARAISON.md             # Comparaison entre Streamlit et Tkinter
+Streamlit
+├── app.py                     # Application Streamlit
+└── requirements.txt           # Dépendances Python pour Streamlit
+Tkinter
+├── app_tkinter.py             # Application Tkinter native
+├── requirements_tkinter.txt   # Dépendances Python pour Tkinter
+└── launch_tkinter.bat         # Script de lancement rapide pour Windows
 ```
 
 ## ⚙️ Technical Details
@@ -159,165 +162,130 @@ RATP ODTGEN/
 - **Tkinter** (inclus avec Python): Interface graphique native
 - **Streamlit** `>=1.28.0`: Framework d'application web (version web uniquement)
 
-### Performance Optimizations
+## 🛠️ Dépannage
 
-- **Cached Data Loading**: Uploaded files are cached using `@st.cache_data`
-- **Set-based Lookups**: Component verification uses Python sets for O(1) performance
-- **Efficient Excel Generation**: Uses openpyxl for styled Excel output
-- **Session Persistence**: State maintained across interactions
+### Problèmes Courants
 
-## 🔧 Advanced Features
+**1. L'importation du fichier échoue**
+- ✅ Vérifiez que votre fichier contient exactement ces colonnes: `Description`, `Code RIMSES`
+- ✅ Vérifiez le format du fichier (CSV ou Excel .xlsx uniquement)
+- ✅ Assurez-vous que le fichier n'est pas protégé par mot de passe ou corrompu
+- ✅ Essayez un fichier plus petit si le temps d'importation est trop long
 
-### Automatic Scanning
+**2. Composants non trouvés**
+- ✅ Vérifiez que l'ID du composant correspond exactement (sensible à la casse)
+- ✅ Vérifiez l'absence d'espaces supplémentaires, traits d'union ou caractères spéciaux
+- ✅ Assurez-vous que le CSV/Excel a été correctement importé
+- ✅ Confirmez que le composant existe dans vos données téléchargées
 
-The application features **automatic scanning** when users press Enter in the input field:
-- No need to click "Scan" buttons
-- Immediate feedback on component status
-- Input field automatically clears after successful scan
-- Prevents accidental duplicate scans
+**3. Performance de l'application**
+- ✅ Pour les fichiers volumineux (>10 000 composants), envisagez de diviser les données
+- ✅ Fermez les autres onglets du navigateur en cas de ralentissement
+- ✅ Videz le cache du navigateur si l'interface devient non réactive
+- ✅ Utilisez la version en ligne pour de meilleures performances
 
-### Excel Report Generation
+**4. Problèmes d'exportation**
+- ✅ Vérifiez que les bloqueurs de pop-up n'empêchent pas les téléchargements
+- ✅ Vérifiez l'espace disque disponible pour les exportations volumineuses
+- ✅ Essayez un autre navigateur si les téléchargements échouent
+- ✅ Contactez le support si les exportations sont systématiquement corrompues
 
-The Excel export feature provides:
-- **Multi-sheet workbooks** with professional formatting
-- **Conditional formatting** with color coding
-- **Auto-sized columns** for optimal readability
-- **Headers with bold styling**
-- **Timestamp inclusion** for audit trails
+### Compatibilité des Navigateurs
 
-### Error Handling
-
-Comprehensive error management includes:
-- **File format validation** (CSV/Excel only)
-- **Column requirement checking** (component_name, component_id)
-- **Graceful error messages** for user guidance
-- **Exception handling** for file corruption or access issues
-
-## 🛠️ Troubleshooting
-
-### Common Issues
-
-**1. File Upload Fails**
-- ✅ Ensure your file has exactly these columns: `component_name`, `component_id`
-- ✅ Check file format (CSV or Excel .xlsx only)
-- ✅ Verify the file isn't password-protected or corrupted
-- ✅ Try a smaller file if upload times out
-
-**2. Components Not Found**
-- ✅ Verify the component ID matches exactly (case-sensitive)
-- ✅ Check for extra spaces, hyphens, or special characters
-- ✅ Ensure the CSV/Excel was uploaded successfully
-- ✅ Confirm the component exists in your uploaded data
-
-**3. Application Performance**
-- ✅ For large files (>10,000 components), consider splitting data
-- ✅ Close other browser tabs if experiencing slowdowns
-- ✅ Clear browser cache if interface becomes unresponsive
-- ✅ Use the online version for better performance
-
-**4. Export Issues**
-- ✅ Ensure pop-up blockers aren't preventing downloads
-- ✅ Check available disk space for large exports
-- ✅ Try a different browser if downloads fail
-- ✅ Contact support if exports are consistently corrupted
-
-### Browser Compatibility
-
-**Fully Supported:**
-- Chrome 90+ (Recommended)
+**Entièrement pris en charge:**
+- Chrome 90+ (Recommandé)
 - Firefox 88+
 - Safari 14+
 - Edge 90+
 
-**Mobile/Tablet:**
+**Mobile/Tablette:**
 - iOS Safari 14+
 - Chrome Mobile 90+
-- Responsive design optimized for touch interfaces
+- Design responsive optimisé pour les interfaces tactiles
 
-## 🚀 Deployment Information
+## 🚀 Informations de Déploiement
 
-### Cloud Hosting
+### Hébergement Cloud
 
-The application is hosted on **Streamlit Cloud** with the following benefits:
-- **High Availability**: 99.9% uptime guarantee
-- **Automatic Updates**: Deployed from the main branch
-- **Global CDN**: Fast loading worldwide
-- **SSL Security**: HTTPS encryption for all traffic
+L'application est hébergée sur **Streamlit Cloud** avec les avantages suivants:
+- **Haute disponibilité**: Garantie de disponibilité de 99,9%
+- **Mises à jour automatiques**: Déploiement depuis la branche principale
+- **CDN mondial**: Chargement rapide dans le monde entier
+- **Sécurité SSL**: Cryptage HTTPS pour tout le trafic
 
-### URL Structure
+### Structure d'URL
 
-- **Primary URL**: `https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/`
-- **Direct Access**: No authentication required
-- **Session Management**: Individual user sessions isolated
+- **URL principale**: `https://josselinperret-ratp-odtgen-streamlitapp-9ezp5q.streamlit.app/`
+- **Accès direct**: Aucune authentification requise
+- **Gestion des sessions**: Sessions utilisateur individuelles isolées
 
-## 📊 Use Cases & Applications
+## 📊 Cas d'Utilisation & Applications
 
-### Manufacturing Quality Control
-- **Incoming Inspection**: Verify received components against purchase orders
-- **Production Line**: Check component availability before assembly
-- **Quality Audits**: Validate component authenticity and specifications
+### Contrôle Qualité en Fabrication
+- **Inspection à réception**: Vérifier les composants reçus par rapport aux bons de commande
+- **Ligne de production**: Vérifier la disponibilité des composants avant l'assemblage
+- **Audits qualité**: Valider l'authenticité et les spécifications des composants
 
-### Inventory Management
-- **Stock Verification**: Confirm physical inventory matches records
-- **Cycle Counting**: Regular verification of high-value components
-- **Discrepancy Detection**: Identify missing or extra components
+### Gestion des Stocks
+- **Vérification d'inventaire**: Confirmer que l'inventaire physique correspond aux registres
+- **Comptage cyclique**: Vérification régulière des composants à haute valeur
+- **Détection des écarts**: Identifier les composants manquants ou excédentaires
 
-### Maintenance Operations
-- **Spare Parts Verification**: Ensure correct parts for maintenance tasks
-- **Work Order Compliance**: Verify required components are available
-- **Asset Tracking**: Monitor component usage and replacement cycles
+### Opérations de Maintenance
+- **Vérification des pièces détachées**: Assurer les bonnes pièces pour les tâches de maintenance
+- **Conformité des ordres de travail**: Vérifier la disponibilité des composants requis
+- **Suivi des actifs**: Surveiller l'utilisation et le remplacement des composants
 
-## 🔐 Security & Privacy
+## 🔐 Sécurité & Confidentialité
 
-### Data Handling
-- **No Persistent Storage**: Data exists only during your browser session
-- **Local Processing**: All verification happens in your browser
-- **No Data Collection**: No personal or component data is stored by the application
-- **Session Isolation**: Each user session is completely independent
+### Traitement des Données
+- **Aucun stockage persistant**: Les données n'existent que pendant votre session navigateur
+- **Traitement local**: Toutes les vérifications s'effectuent dans votre navigateur
+- **Aucune collecte de données**: Aucune donnée personnelle ou de composant n'est stockée par l'application
+- **Isolation des sessions**: Chaque session utilisateur est complètement indépendante
 
-### Best Practices
-- **Secure Upload**: Only upload files you have permission to use
-- **Data Classification**: Consider data sensitivity before using cloud version
-- **Access Control**: Implement organizational access controls as needed
+### Bonnes Pratiques
+- **Import sécurisé**: N'importez que les fichiers que vous êtes autorisé à utiliser
+- **Classification des données**: Considérez la sensibilité des données avant d'utiliser la version cloud
+- **Contrôle d'accès**: Implémentez des contrôles d'accès organisationnels selon les besoins
 
-## 🤝 Support & Contributing
+## 🤝 Support & Contribution
 
-### Getting Help
+### Obtenir de l'Aide
 
-1. **Check this documentation** for common solutions
-2. **Review error messages** for specific guidance
-3. **Test with sample data** to isolate issues
-4. **Contact the development team** for technical support
+1. **Consultez cette documentation** pour les solutions courantes
+2. **Examinez les messages d'erreur** pour des conseils spécifiques
+3. **Testez avec des données d'exemple** pour isoler les problèmes
+4. **Contactez l'équipe de développement** pour un support technique
 
-### Contributing
+### Contribuer
 
-To enhance or modify this application:
+Pour améliorer ou modifier cette application:
 
-1. **Fork** the project repository
-2. **Create** a feature branch (`feature/new-functionality`)
-3. **Implement** your changes with proper testing
-4. **Update** documentation as needed
-5. **Submit** a pull request with detailed description
+1. **Dupliquez** le dépôt du projet
+2. **Créez** une branche de fonctionnalité (`fonctionnalité/nouvelle-fonctionnalité`)
+3. **Implémentez** vos modifications avec des tests appropriés
+4. **Mettez à jour** la documentation si nécessaire
+5. **Soumettez** une demande de fusion avec une description détaillée
 
-### Feedback
+### Retours
 
-We welcome feedback on:
-- **User interface improvements**
-- **Additional export formats**
-- **Performance optimizations**
-- **New feature requests**
+Nous accueillons vos retours sur:
+- **Améliorations de l'interface utilisateur**
+- **Formats d'exportation supplémentaires**
+- **Optimisations de performance**
+- **Demandes de nouvelles fonctionnalités**
 
-## 📄 License
+## 📄 Licence
 
-This project is developed for RATP operations and is available under the organization's internal license terms.
+This project is under the GNU General Public License v3.0.
 
-## 👨‍💻 Credits
+## 👨‍💻 Crédits
 
-**Developed by:** Josselin Perret  
-**Organization:** RATP  
-**Technology Stack:** Python, Streamlit, Pandas, openpyxl  
-**Deployment:** Streamlit Cloud
+**Développé par:** Josselin Perret, étudiant à CentraleSupélec
+**Stack Technologique:** Python, Streamlit, Pandas, openpyxl  
+**Déploiement:** Streamlit Cloud
 
 ---
 
-**🚀 Ready to start? Visit [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/) and upload your component data!**
+**🚀 Prêt à commencer? Visitez [https://josselinperret-ratp-odtgen-streamlitapp-9ezp5q.streamlit.app/](https://josselinperret-ratp-odtgen-streamlitapp-9ezp5q.streamlit.app/) et importez vos données de composants!**
