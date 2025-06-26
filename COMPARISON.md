@@ -15,13 +15,16 @@
 
 ## Recommandation d'Usage
 
-### Utilisez **Streamlit** (app.py) si :
+### Utilisez **Streamlit** (app.py) si
+
 - Vous préférez une interface web
 - Vous avez besoin d'un accès multi-utilisateur
 - Vous déployez sur un serveur
 - Vous scannez occasionnellement
+- Accès en ligne: [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
 
-### Utilisez **Tkinter** (app_tkinter.py) si :
+### Utilisez **Tkinter** (app_tkinter.py) si
+
 - Vous scannez intensivement
 - Vous voulez une réactivité maximale
 - Vous préférez une application native
@@ -31,11 +34,14 @@
 ## Lancement Rapide
 
 ### Version Streamlit
+
 ```bash
 streamlit run app.py
+# ou accès en ligne: https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/
 ```
 
 ### Version Tkinter
+
 ```bash
 python app_tkinter.py
 # ou double-clic sur launch_tkinter.bat
