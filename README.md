@@ -1,8 +1,23 @@
 # 📦 RATP - ODTGEN Barcode Component Verifier
 
-A comprehensive Python web application built with **Streamlit** that allows RATP operations teams to upload component inventories and verify scanned barcodes against the uploaded lists in real-time. The application is designed for quality control and inventory management in manufacturing and maintenance operations.
+Une application Python complète qui permet aux équipes d'exploitation RATP de télécharger des inventaires de composants et de vérifier les codes-barres scannés en temps réel. L'application est conçue pour le contrôle qualité et la gestion d'inventaire dans les opérations de fabrication et de maintenance.
 
-🌐 **Live Application**: [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
+## 🎯 Deux Versions Disponibles
+
+### 🌐 Version Streamlit (Web) - `app.py`
+- Interface web responsive
+- Accès multi-utilisateur
+- Déploiement serveur possible
+- **🌐 Application en ligne**: [https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/](https://ratp-odtgen-6bclhpj7py2gyttlju3dsp.streamlit.app/)
+
+### 🖥️ Version Tkinter (Native) - `app_tkinter.py` ⭐ **RECOMMANDÉE**
+- **🔄 Mode scan en continu** sans re-clic
+- **👆 Sélection manuelle** par clic sur tableau
+- **🔍 Recherche et filtrage** en temps réel
+- **⚡ Performance optimisée** pour usage intensif
+- Interface native desktop plus réactive
+
+> 📋 Voir [COMPARISON.md](COMPARISON.md) pour une comparaison détaillée des deux versions
 
 ## 🚀 Features
 
@@ -38,29 +53,40 @@ A comprehensive Python web application built with **Streamlit** that allows RATP
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
-
-- Python 3.9 or higher
+- Python 3.9 ou plus récent
 - pip package manager
-- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Navigateur web moderne (pour la version Streamlit)
 
-### Local Installation
+### Installation Locale
 
-1. **Clone or download** this project to your local machine
+1. **Téléchargez** ce projet sur votre machine locale
 
-2. **Navigate** to the project directory:
-
+2. **Naviguez** vers le répertoire du projet :
    ```bash
    cd "RATP ODTGEN"
    ```
 
-3. **Install dependencies**:
+### Version Tkinter (Recommandée) 🖥️
 
+3. **Installez les dépendances** :
+   ```bash
+   pip install -r requirements_tkinter.txt
+   ```
+
+4. **Lancez l'application** :
+   ```bash
+   python app_tkinter.py
+   ```
+   **Ou** double-cliquez sur `launch_tkinter.bat`
+
+### Version Streamlit (Web) 🌐
+
+3. **Installez les dépendances** :
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Run the application**:
-
+4. **Lancez l'application** :
    ```bash
    streamlit run app.py
    ```
