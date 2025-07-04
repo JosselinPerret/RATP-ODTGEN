@@ -6,6 +6,8 @@
 
 Application Python développée par **Josselin Perret** (étudiant à CentraleSupélec) lors de son stage ouvrier à la RATP. Cette solution permet aux équipes d'exploitation de télécharger des inventaires de composants et de vérifier les codes-barres en temps réel pour le contrôle qualité et la gestion d'inventaire.
 
+![GIF de présentation](presentation.gif)
+
 ## 🎯 Deux Versions Disponibles
 
 ### 🌐 Version Streamlit (Web) - `app.py`
